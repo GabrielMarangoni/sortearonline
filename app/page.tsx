@@ -1,65 +1,177 @@
-import Image from "next/image";
+'use client'
+
+import { useState } from 'react'
+import { Box, Card, TextField, Button, Typography, Divider, Grid, Stack } from '@mui/material'
+import { sortearTimes } from './utils/sortearTimes'
 
 export default function Home() {
+  const [jogadores, setJogadores] = useState('')
+  const [qtdTimes, setQtdTimes] = useState('')
+  const [resultado, setResultado] = useState([])
+
+  const handleSortear = () => {
+    if (!jogadores || !qtdTimes) return
+    const times = sortearTimes(jogadores, Number(qtdTimes))
+    setResultado(times)
+  }
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
+    <Box sx={{ p: 4, maxWidth: 900, mx: 'auto' }}>
+      
+      {/* HERO */}
+      <Box sx={{ textAlign: 'center', mt: 4, mb: 8 }}>
+        <Typography variant='h3' fontWeight='bold' mb={2}>
+          Sorteador de Times Online
+        </Typography>
+
+        <Typography variant='h6' color='text.secondary'>
+          Gere times equilibrados em segundos — simples, rápido e automático
+        </Typography>
+      </Box>
+
+      {/* COMO FUNCIONA */}
+      <Box sx={{ mb: 8 }}>
+        <Typography variant='h4' fontWeight='bold' mb={3}>
+          Como funciona?
+        </Typography>
+
+        <Typography variant='body1' sx={{ mb: 2 }}>
+          Você insere a lista de jogadores, escolhe quantos times deseja e pronto.
+          O sistema embaralha automaticamente e distribui os jogadores de forma equilibrada.
+        </Typography>
+
+        <Typography variant='body1' sx={{ mb: 2 }}>
+          Ideal para futebol, basquete, vôlei, jogos online, competições e qualquer atividade
+          em grupo onde você precise montar times rapidamente.
+        </Typography>
+
+        <Typography variant='body1'>
+          O algoritmo garante que ninguém fique de fora e que os participantes sejam divididos
+          da forma mais justa possível.
+        </Typography>
+      </Box>
+
+      {/* BENEFÍCIOS */}
+      <Box sx={{ mb: 8 }}>
+        <Typography variant='h4' fontWeight='bold' mb={4}>
+          Por que usar o sorteador?
+        </Typography>
+
+        <Grid container spacing={3}>
+          <Grid item xs={12} md={4}>
+            <Card sx={{ p: 2 }}>
+              <Typography variant='h6' fontWeight='bold' mb={1}>
+                🎲 Sorteio Automático
+              </Typography>
+              <Typography variant='body2'>
+                Nada de discutir quem vai com quem — o sistema decide pra você.
+              </Typography>
+            </Card>
+          </Grid>
+
+          <Grid item xs={12} md={4}>
+            <Card sx={{ p: 2 }}>
+              <Typography variant='h6' fontWeight='bold' mb={1}>
+                ⚡ Rápido e Fácil
+              </Typography>
+              <Typography variant='body2'>
+                Em menos de 10 segundos seus times estão prontos.
+              </Typography>
+            </Card>
+          </Grid>
+
+          <Grid item xs={12} md={4}>
+            <Card sx={{ p: 2 }}>
+              <Typography variant='h6' fontWeight='bold' mb={1}>
+                🧩 Flexível
+              </Typography>
+              <Typography variant='body2'>
+                Escolha quantos times quiser e quantos jogadores quiser.
+              </Typography>
+            </Card>
+          </Grid>
+        </Grid>
+      </Box>
+
+      {/* CTA */}
+      <Box sx={{ textAlign: 'center', mb: 8 }}>
+        <Typography variant='h4' fontWeight='bold' mb={2}>
+          Pronto para começar?
+        </Typography>
+
+        <Typography variant='body1' mb={3}>
+          Preencha os dados abaixo e gere seus times imediatamente.
+        </Typography>
+
+        <Button variant='contained' size='large' onClick={() => window.scrollTo(0, 900)}>
+          Começar agora
+        </Button>
+      </Box>
+
+      {/* FORMULÁRIO */}
+      <Card sx={{ p: 3, mb: 4 }}>
+        <Typography variant='h5' fontWeight='bold' mb={3}>
+          Gerar Times
+        </Typography>
+
+        <TextField
+          label='Jogadores (um por linha)'
+          multiline
+          rows={6}
+          fullWidth
+          value={jogadores}
+          onChange={e => setJogadores(e.target.value)}
+          sx={{ mb: 2 }}
         />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
-  );
+
+        <TextField
+          label='Quantidade de times'
+          type='number'
+          fullWidth
+          value={qtdTimes}
+          onChange={e => setQtdTimes(e.target.value)}
+          sx={{ mb: 3 }}
+        />
+
+        <Button
+          variant='contained'
+          fullWidth
+          size='large'
+          onClick={handleSortear}
+        >
+          Sortear
+        </Button>
+      </Card>
+
+      {/* RESULTADO */}
+      {resultado.length > 0 && (
+        <>
+          <Divider sx={{ my: 3 }} />
+
+          <Grid container spacing={3}>
+            {resultado.map((time, index) => (
+              <Grid item xs={12} md={6} key={index}>
+                <Card sx={{ p: 2 }}>
+                  <Typography
+                    variant='h6'
+                    fontWeight='bold'
+                    color='primary'
+                    sx={{ mb: 1 }}
+                  >
+                    Time {index + 1}
+                  </Typography>
+
+                  {time.map((jogador, i) => (
+                    <Typography key={i} sx={{ ml: 1, mb: 0.5 }}>
+                      • {jogador}
+                    </Typography>
+                  ))}
+                </Card>
+              </Grid>
+            ))}
+          </Grid>
+        </>
+      )}
+    </Box>
+  )
 }
