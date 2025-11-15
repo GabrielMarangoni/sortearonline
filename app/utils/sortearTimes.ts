@@ -1,4 +1,4 @@
-export function sortearTimes(jogadores, qtdTimes) {
+export function sortearTimes(jogadores: string, qtdTimes: number): string[][] {
   const lista = jogadores
     .split('\n')
     .map(j => j.trim())
@@ -6,7 +6,7 @@ export function sortearTimes(jogadores, qtdTimes) {
 
   const embaralhado = lista.sort(() => Math.random() - 0.5)
 
-  const times = Array.from({ length: qtdTimes }, () => [])
+  const times: string[][] = Array.from({ length: qtdTimes }, () => [])
 
   let index = 0
 

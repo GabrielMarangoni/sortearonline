@@ -1,23 +1,24 @@
 'use client'
 
 import { useState } from 'react'
-import { Box, Card, TextField, Button, Typography, Divider, Grid, Stack } from '@mui/material'
+import { Box, Card, TextField, Button, Typography, Divider, Grid } from '@mui/material'
 import { sortearTimes } from './utils/sortearTimes'
 
 export default function Home() {
   const [jogadores, setJogadores] = useState('')
-  const [qtdTimes, setQtdTimes] = useState('')
-  const [resultado, setResultado] = useState([])
+  const [qtdTimes, setQtdTimes] = useState<number | ''>('')
+  const [resultado, setResultado] = useState<string[][]>([])
 
   const handleSortear = () => {
     if (!jogadores || !qtdTimes) return
+
     const times = sortearTimes(jogadores, Number(qtdTimes))
     setResultado(times)
   }
 
   return (
     <Box sx={{ p: 4, maxWidth: 900, mx: 'auto' }}>
-      
+
       {/* HERO */}
       <Box sx={{ textAlign: 'center', mt: 4, mb: 8 }}>
         <Typography variant='h3' fontWeight='bold' mb={2}>
@@ -37,17 +38,14 @@ export default function Home() {
 
         <Typography variant='body1' sx={{ mb: 2 }}>
           Você insere a lista de jogadores, escolhe quantos times deseja e pronto.
-          O sistema embaralha automaticamente e distribui os jogadores de forma equilibrada.
         </Typography>
 
         <Typography variant='body1' sx={{ mb: 2 }}>
-          Ideal para futebol, basquete, vôlei, jogos online, competições e qualquer atividade
-          em grupo onde você precise montar times rapidamente.
+          Ideal para futebol, basquete, vôlei, jogos online, competições e muito mais.
         </Typography>
 
         <Typography variant='body1'>
-          O algoritmo garante que ninguém fique de fora e que os participantes sejam divididos
-          da forma mais justa possível.
+          O algoritmo distribui automaticamente e garante equilíbrio.
         </Typography>
       </Box>
 
@@ -64,7 +62,7 @@ export default function Home() {
                 🎲 Sorteio Automático
               </Typography>
               <Typography variant='body2'>
-                Nada de discutir quem vai com quem — o sistema decide pra você.
+                Chega de discussão — o sistema decide tudo.
               </Typography>
             </Card>
           </Grid>
@@ -75,7 +73,7 @@ export default function Home() {
                 ⚡ Rápido e Fácil
               </Typography>
               <Typography variant='body2'>
-                Em menos de 10 segundos seus times estão prontos.
+                Seus times prontos em segundos.
               </Typography>
             </Card>
           </Grid>
@@ -86,7 +84,7 @@ export default function Home() {
                 🧩 Flexível
               </Typography>
               <Typography variant='body2'>
-                Escolha quantos times quiser e quantos jogadores quiser.
+                Escolha quantos times quiser.
               </Typography>
             </Card>
           </Grid>
@@ -108,7 +106,7 @@ export default function Home() {
         </Button>
       </Box>
 
-      {/* FORMULÁRIO */}
+      {/* FORM */}
       <Card sx={{ p: 3, mb: 4 }}>
         <Typography variant='h5' fontWeight='bold' mb={3}>
           Gerar Times
@@ -129,7 +127,7 @@ export default function Home() {
           type='number'
           fullWidth
           value={qtdTimes}
-          onChange={e => setQtdTimes(e.target.value)}
+          onChange={e => setQtdTimes(Number(e.target.value))}
           sx={{ mb: 3 }}
         />
 
